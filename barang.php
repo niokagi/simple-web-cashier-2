@@ -38,6 +38,7 @@ $result = $stmt->get_result();
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Gambar</th>
                                                 <th>Nama Barang</th>
                                                 <th>Stok</th>
                                                 <th>Harga</th>
@@ -48,6 +49,13 @@ $result = $stmt->get_result();
                                             <?php while ($barang = $result->fetch_assoc()) : ?>
                                                 <tr>
                                                     <td><?= htmlspecialchars($barang['id_barang']); ?></td>
+                                                    <td>
+                                                        <?php if (!empty($barang['gambar']) && file_exists("gambar_produk/" . $barang['gambar'])): ?>
+                                                            <img src="gambar_produk/<?= htmlspecialchars($barang['gambar']); ?>" alt="<?= htmlspecialchars($barang['nama_barang']); ?>" style="max-width: 100px;">
+                                                        <?php else: ?>
+                                                            Tidak ada gambar
+                                                        <?php endif; ?>
+                                                    </td>
                                                     <td><?= htmlspecialchars($barang['nama_barang']); ?></td>
                                                     <td><?= htmlspecialchars($barang['stok']); ?></td>
                                                     <td>Rp <?= number_format($barang['harga'], 0, ',', '.'); ?></td>
